@@ -18,7 +18,9 @@ const getSubsetOfClicks = (clicks) => {
   clicks
     .filter((click) => _.get(click, "amount") <= 10) // discard If there are more than 10 clicks for an IP
     .forEach((item) => {
-      const getHour = moment(_.get(item, "timestamp")).hour().toString();
+      const getHour = moment(new Date(_.get(item, "timestamp")))
+        .hour()
+        .toString();
       if (tempObj[getHour]) {
         if (tempObj[getHour][item.ip]) {
           if (tempObj[getHour][item.ip].amount < _.get(item, "amount")) {
